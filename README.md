@@ -3,17 +3,299 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>我的个人主页</title>
+    <title>我的独立开发工作室</title>
     <style>
-        body { font-family: sans-serif; text-align: center; padding: 50px; background: #f0f2f5; }
-        h1 { color: #333; }
-        .btn { background: #0366d6; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px; }
+        /* --- 基础样式 --- */
+        :root {
+            --primary-color: #4f46e5; /* 靛蓝色，适合科技/软件 */
+            --secondary-color: #1f2937;
+            --bg-light: #f3f4f6;
+            --text-gray: #6b7280;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #fff;
+        }
+
+        a { text-decoration: none; color: inherit; }
+        ul { list-style: none; }
+
+        /* --- 导航栏 --- */
+        header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        nav {
+            max-width: 1100px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+        }
+
+        .logo { font-size: 1.5rem; font-weight: 800; color: var(--primary-color); letter-spacing: -0.5px; }
+        .nav-links a { margin-left: 20px; font-weight: 500; font-size: 0.95rem; }
+        .nav-links a:hover { color: var(--primary-color); }
+
+        /* --- 通用组件 --- */
+        .container { max-width: 1100px; margin: 0 auto; padding: 0 2rem; }
+        .btn {
+            display: inline-block;
+            padding: 12px 30px;
+            border-radius: 8px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        .btn-primary { background: var(--primary-color); color: #fff; }
+        .btn-primary:hover { background: #4338ca; transform: translateY(-1px); }
+        .btn-outline { border: 2px solid var(--primary-color); color: var(--primary-color); }
+        .btn-outline:hover { background: var(--primary-color); color: #fff; }
+
+        section { padding: 5rem 0; }
+        h2 { font-size: 2.2rem; text-align: center; margin-bottom: 3rem; color: var(--secondary-color); }
+
+        /* --- 英雄区域 --- */
+        #home {
+            padding-top: 160px;
+            padding-bottom: 100px;
+            text-align: center;
+            background: linear-gradient(to bottom, #ffffff, #f9fafb);
+        }
+        .hero-title { font-size: 3rem; font-weight: 800; margin-bottom: 1.5rem; line-height: 1.2; }
+        .hero-subtitle { font-size: 1.25rem; color: var(--text-gray); max-width: 600px; margin: 0 auto 2.5rem; }
+
+        /* --- 软件展示 --- */
+        #software { background: #fff; }
+        .software-showcase {
+            display: flex;
+            align-items: center;
+            gap: 4rem;
+            margin-bottom: 4rem;
+        }
+        .software-showcase:nth-child(even) { flex-direction: row-reverse; }
+        
+        .software-info { flex: 1; }
+        .software-image { 
+            flex: 1; 
+            background: #e5e7eb; 
+            height: 300px; 
+            border-radius: 12px; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center;
+            color: #9ca3af;
+            font-weight: bold;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+        }
+        
+        .feature-list li { margin-bottom: 10px; padding-left: 20px; position: relative; }
+        .feature-list li::before { content: '✓'; color: var(--primary-color); position: absolute; left: 0; font-weight: bold; }
+
+        /* --- 价格方案 --- */
+        #pricing { background: var(--bg-light); }
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+        .pricing-card {
+            background: #fff;
+            padding: 2.5rem;
+            border-radius: 12px;
+            text-align: center;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+            border: 1px solid #e5e7eb;
+            transition: transform 0.3s;
+        }
+        .pricing-card:hover { transform: translateY(-5px); border-color: var(--primary-color); }
+        .price { font-size: 2.5rem; font-weight: 800; color: var(--secondary-color); margin: 1rem 0; }
+        .price span { font-size: 1rem; color: var(--text-gray); font-weight: 400; }
+        .pricing-features { text-align: left; margin: 2rem 0; }
+        .pricing-features li { margin-bottom: 0.8rem; color: #4b5563; }
+
+        /* --- 交流/博客 --- */
+        #blog { background: #fff; }
+        .blog-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; }
+        .blog-card { padding: 2rem; border: 1px solid #e5e7eb; border-radius: 8px; }
+        .blog-date { font-size: 0.85rem; color: var(--text-gray); margin-bottom: 0.5rem; display: block; }
+        .blog-card h3 { margin-bottom: 1rem; }
+        .blog-card p { color: var(--text-gray); font-size: 0.95rem; }
+
+        /* --- 页脚 --- */
+        footer { background: var(--secondary-color); color: #9ca3af; padding: 3rem 0; text-align: center; }
+        .social-links { margin-bottom: 1.5rem; }
+        .social-links a { margin: 0 10px; font-size: 1.2rem; }
+
+        /* --- 移动端 --- */
+        @media (max-width: 768px) {
+            .hero-title { font-size: 2rem; }
+            .software-showcase { flex-direction: column !important; gap: 2rem; }
+            .software-image { width: 100%; }
+            nav { flex-direction: column; gap: 1rem; }
+            .nav-links a { margin: 0 10px; }
+        }
     </style>
 </head>
 <body>
-    <h1>你好，我是开发者！</h1>
-    <p>这是我的第一个 GitHub Pages 网站。</p>
-    <br>
-    <a href="#" class="btn">查看我的软件</a>
+
+    <!-- 导航栏 -->
+    <header>
+        <nav>
+            <div class="logo">DevStudio.</div>
+            <ul class="nav-links">
+                <li><a href="#software">软件产品</a></li>
+                <li><a href="#pricing">价格</a></li>
+                <li><a href="#blog">技术博客</a></li>
+                <li><a href="#contact">联系我</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- 首页 -->
+    <section id="home">
+        <div class="container">
+            <h1 class="hero-title">打造极致的软件体验<br>解决真实世界的问题</h1>
+            <p class="hero-subtitle">你好，我是[你的名字]。我是一名独立开发者，致力于开发高效、优雅的桌面与移动应用。</p>
+            <a href="#software" class="btn btn-primary">查看我的软件</a>
+            <a href="#blog" class="btn btn-outline" style="margin-left: 10px;">阅读博客</a>
+        </div>
+    </section>
+
+    <!-- 软件展示 -->
+    <section id="software">
+        <div class="container">
+            <h2>核心产品</h2>
+            
+            <!-- 产品 1 -->
+            <div class="software-showcase">
+                <div class="software-info">
+                    <h3>🚀 效率神器 Pro</h3>
+                    <p style="margin-bottom: 1.5rem; color: #4b5563;">这是一款帮助你提升工作效率的桌面工具，支持跨平台同步，专为极客设计。</p>
+                    <ul class="feature-list">
+                        <li>一键自动化处理繁琐任务</li>
+                        <li>支持 Windows / Mac / Linux</li>
+                        <li>本地数据加密，安全隐私</li>
+                    </ul>
+                    <br>
+                    <a href="#" class="btn btn-primary">立即下载</a>
+                    <a href="#" class="btn btn-outline">查看演示</a>
+                </div>
+                <div class="software-image">软件截图占位图</div>
+            </div>
+
+            <!-- 产品 2 -->
+            <div class="software-showcase">
+                <div class="software-info">
+                    <h3>📊 数据看板助手</h3>
+                    <p style="margin-bottom: 1.5rem; color: #4b5563;">为中小团队打造的轻量级数据可视化工具，让数据说话。</p>
+                    <ul class="feature-list">
+                        <li>拖拽式图表生成</li>
+                        <li>实时数据源接入</li>
+                        <li>团队协作权限管理</li>
+                    </ul>
+                    <br>
+                    <a href="#" class="btn btn-primary">开始使用</a>
+                </div>
+                <div class="software-image">软件截图占位图</div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- 价格方案 -->
+    <section id="pricing">
+        <div class="container">
+            <h2>选择适合你的方案</h2>
+            <div class="pricing-grid">
+                <!-- 免费版 -->
+                <div class="pricing-card">
+                    <h3>开源版</h3>
+                    <div class="price">免费</div>
+                    <ul class="pricing-features">
+                        <li>基础功能使用</li>
+                        <li>社区支持</li>
+                        <li>GitHub 源码访问</li>
+                    </ul>
+                    <a href="#" class="btn btn-outline" style="width: 100%">GitHub 下载</a>
+                </div>
+                <!-- 专业版 -->
+                <div class="pricing-card" style="border-color: var(--primary-color); border-width: 2px;">
+                    <h3>专业版</h3>
+                    <div class="price">¥99 <span>/ 终身</span></div>
+                    <ul class="pricing-features">
+                        <li>所有基础功能</li>
+                        <li>高级自动化脚本</li>
+                        <li>优先技术支持</li>
+                        <li>专属 Discord/微信群</li>
+                    </ul>
+                    <a href="#" class="btn btn-primary" style="width: 100%">立即购买</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 博客/交流 -->
+    <section id="blog">
+        <div class="container">
+            <h2>开发日志 & 思考</h2>
+            <div class="blog-grid">
+                <article class="blog-card">
+                    <span class="blog-date">2026-03-15</span>
+                    <h3>我是如何从0开发第一款SaaS应用的</h3>
+                    <p>分享我在开发过程中的技术选型、遇到的坑以及独立开发的感悟...</p>
+                </article>
+                <article class="blog-card">
+                    <span class="blog-date">2026-02-20</span>
+                    <h3>深入理解 Rust 的所有权机制</h3>
+                    <p>一篇关于内存安全的技术文章，探讨了 Rust 语言的核心特性...</p>
+                </article>
+                <article class="blog-card">
+                    <span class="blog-date">2026-01-10</span>
+                    <h3>独立开发者的工具清单</h3>
+                    <p>推荐一些我在日常开发中离不开的效率工具和软件...</p>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <!-- 联系/页脚 -->
+    <footer id="contact">
+        <div class="container">
+            <div class="social-links">
+                <a href="#">Twitter / X</a>
+                <a href="#">GitHub</a>
+                <a href="#">Email</a>
+                <a href="#">微信公众号</a>
+            </div>
+            <p>有问题想交流？欢迎发邮件至：contact@yourdomain.com</p>
+            <br>
+            <p>&copy; 2026 [你的名字]. Built with code & coffee.</p>
+        </div>
+    </footer>
+
+    <script>
+        // 平滑滚动
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
 </body>
 </html>
