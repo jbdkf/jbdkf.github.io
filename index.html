@@ -14,29 +14,41 @@
             min-height: 100vh;
             margin: 0;
             align-items: center;
-            /* 让内容垂直居中，但留出底部空间 */
-            justify-content: center; 
+            justify-content: center;
         }
         .container {
             text-align: center;
-            padding: 40px 20px;
+            padding: 40px 30px;
             background: white;
             border-radius: 12px;
             box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-            max-width: 500px;
+            max-width: 600px;
             width: 90%;
-            margin-bottom: 50px; /* 给底部留点空隙，防止贴太近 */
+            margin-bottom: 60px;
         }
-        h1 { 
-            margin: 0 0 15px 0; 
-            font-size: 24px;
-        }
-        p { 
-            color: #586069; 
-            line-height: 1.6; 
-            margin: 0;
-        }
+        h1 { margin: 0 0 10px 0; font-size: 28px; }
+        .bio { color: #586069; margin-bottom: 30px; font-size: 16px; }
         
+        /* 技能标签样式 */
+        .tags { margin-bottom: 30px; }
+        .tag {
+            display: inline-block;
+            background: #f1f8ff;
+            color: #0366d6;
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 12px;
+            margin: 0 5px 5px 0;
+            border: 1px solid #c8e1ff;
+        }
+
+        /* 项目列表样式 */
+        .projects { text-align: left; margin-top: 20px; }
+        .projects h3 { margin-top: 0; font-size: 16px; border-bottom: 1px solid #eaecef; padding-bottom: 10px; }
+        .project-item { margin-bottom: 10px; }
+        .project-item a { font-weight: bold; display: block; margin-bottom: 2px; }
+        .project-desc { font-size: 13px; color: #586069; margin: 0; }
+
         /* 底部样式 */
         footer {
             text-align: center;
@@ -44,34 +56,49 @@
             color: #959da5;
             padding: 10px;
         }
-        
-        /* 链接样式 */
-        a {
-            color: #0366d6;
-            text-decoration: none;
-            font-weight: 500;
-        }
-        a:hover {
-            text-decoration: underline;
-            color: #0056b3;
-        }
+        a { color: #0366d6; text-decoration: none; }
+        a:hover { text-decoration: underline; }
     </style>
 </head>
 <body>
 
-    <!-- 中间主要内容区域 -->
     <div class="container">
-        <!-- 这里可以改成你的昵称 -->
-        <h1>👋 欢迎来到我的主页</h1>
-        
-        <!-- 这里可以写一句你的简介 -->
-        <p>这里是我的互联网角落。<br>你可以在这里找到我的项目、联系方式或者关于我的一切。</p>
+        <!-- 1. 头像和名字 -->
+        <h1>👋 我是 [你的名字]</h1>
+        <p class="bio">
+            这里是我的互联网角落。<br>
+            一名热爱折腾的开发者 / 设计师 / 创作者。
+        </p>
+
+        <!-- 2. 技能/兴趣标签 (填补空白的好帮手) -->
+        <div class="tags">
+            <span class="tag">📷 摄影</span>
+            <span class="tag">💻 编程</span>
+            <span class="tag">☕ 咖啡</span>
+            <span class="tag">🚀 数码</span>
+            <span class="tag">📝 写作</span>
+        </div>
+
+        <!-- 3. 项目/链接列表 (让页面看起来有内容) -->
+        <div class="projects">
+            <h3>🔥 近期项目</h3>
+            
+            <div class="project-item">
+                <!-- 链接可以换成你的GitHub或其他网址 -->
+                <a href="#">我的开源项目</a>
+                <p class="project-desc">这是一个关于 xxx 的有趣项目，旨在解决 xxx 问题。</p>
+            </div>
+
+            <div class="project-item">
+                <a href="#">我的博客文章</a>
+                <p class="project-desc">分享一些技术心得和生活感悟。</p>
+            </div>
+        </div>
     </div>
 
-    <!-- 底部区域 -->
+    <!-- 4. 底部 -->
     <footer>
-        <!-- 记得把“你的名字”改成真的名字或昵称 -->
-        <p>© 2024 你的名字。 Made with Code & <a href="private.html">Coffee</a></p>
+        <p>© 2024 [你的名字]. Made with Code & <a href="private.html">Coffee</a></p>
     </footer>
 
 </body>
