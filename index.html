@@ -3,156 +3,160 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>我的个人主页</title>
+    <title>我的资源库</title>
     <style>
-        /* --- 基础样式 reset --- */
+        /* --- 基础样式 --- */
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; line-height: 1.6; color: #333; background-color: #f9f9f9; }
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; background-color: #f4f6f8; color: #333; line-height: 1.6; }
         a { text-decoration: none; color: inherit; }
-        ul { list-style: none; }
 
-        /* --- 导航栏 --- */
-        header { background: #fff; box-shadow: 0 2px 5px rgba(0,0,0,0.05); position: fixed; width: 100%; top: 0; z-index: 1000; }
-        nav { max-width: 1000px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; padding: 1rem 2rem; }
-        .logo { font-size: 1.5rem; font-weight: bold; color: #2c3e50; }
-        .nav-links { display: flex; gap: 20px; }
-        .nav-links a:hover { color: #3498db; }
+        /* --- 头部 --- */
+        header { background: #fff; padding: 1.5rem 2rem; box-shadow: 0 2px 10px rgba(0,0,0,0.05); display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-size: 1.5rem; font-weight: 800; color: #2d3436; letter-spacing: -0.5px; }
+        .logo span { color: #0984e3; }
 
-        /* --- 通用容器 --- */
-        .container { max-width: 1000px; margin: 0 auto; padding: 0 2rem; }
-        section { padding: 4rem 0; }
-        h2 { font-size: 2rem; margin-bottom: 2rem; text-align: center; color: #2c3e50; }
+        /* --- 主要内容区 --- */
+        .container { max-width: 900px; margin: 3rem auto; padding: 0 1.5rem; }
+        
+        .intro { text-align: center; margin-bottom: 3rem; }
+        .intro h1 { font-size: 2rem; margin-bottom: 0.5rem; }
+        .intro p { color: #636e72; }
 
-        /* --- 英雄区域 (首页) --- */
-        #home { height: 100vh; display: flex; align-items: center; justify-content: center; text-align: center; background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%); }
-        .hero-content h1 { font-size: 3rem; margin-bottom: 1rem; color: #2c3e50; }
-        .hero-content p { font-size: 1.2rem; color: #555; margin-bottom: 2rem; }
-        .btn { background: #3498db; color: #fff; padding: 10px 25px; border-radius: 5px; transition: background 0.3s; }
-        .btn:hover { background: #2980b9; }
+        /* --- 列表样式 (带图片和价格) --- */
+        .resource-list { display: flex; flex-direction: column; gap: 2rem; }
 
-        /* --- 关于我 --- */
-        #about { background: #fff; }
-        .about-content { display: flex; align-items: center; gap: 2rem; flex-wrap: wrap; justify-content: center; }
-        .about-text { max-width: 600px; }
+        .resource-card {
+            background: #fff;
+            border-radius: 12px;
+            padding: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+            transition: transform 0.2s, box-shadow 0.2s;
+            border: 1px solid #dfe6e9;
+        }
 
-        /* --- 项目展示 --- */
-        #projects { background: #f9f9f9; }
-        .project-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; }
-        .project-card { background: #fff; padding: 2rem; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); transition: transform 0.3s; }
-        .project-card:hover { transform: translateY(-5px); }
-        .project-card h3 { margin-bottom: 1rem; color: #2c3e50; }
+        .resource-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+        }
 
-        /* --- 联系方式 --- */
-        #contact { background: #2c3e50; color: #fff; text-align: center; }
-        #contact h2 { color: #fff; }
-        .contact-info { margin-top: 2rem; font-size: 1.1rem; }
+        /* 图片占位符样式 */
+        .card-image {
+            width: 120px;
+            height: 120px;
+            background-color: #dfe6e9;
+            border-radius: 8px;
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #b2bec3;
+            font-size: 0.8rem;
+            overflow: hidden;
+        }
+        .card-image img { width: 100%; height: 100%; object-fit: cover; }
+
+        /* 内容区域 */
+        .card-content { flex: 1; }
+        .card-title { font-size: 1.25rem; font-weight: 700; margin-bottom: 0.5rem; color: #2d3436; }
+        .card-desc { font-size: 0.95rem; color: #636e72; margin-bottom: 1rem; }
+        
+        /* 价格和按钮区域 */
+        .card-footer { display: flex; align-items: center; justify-content: space-between; }
+        .price { font-size: 1.1rem; font-weight: bold; color: #0984e3; background: #e1f0ff; padding: 4px 12px; border-radius: 20px; }
+        .btn { background: #2d3436; color: #fff; padding: 8px 20px; border-radius: 6px; font-size: 0.9rem; transition: background 0.2s; }
+        .btn:hover { background: #000; }
 
         /* --- 页脚 --- */
-        footer { text-align: center; padding: 2rem; background: #222; color: #777; font-size: 0.9rem; }
-        /* 专门给 Coffee 链接加个样式，让它看起来像个彩蛋 */
-        .coffee-link { color: #999; transition: color 0.3s; }
-        .coffee-link:hover { color: #d2b48c; } /* 鼠标放上去变成咖啡色 */
+        footer { text-align: center; padding: 3rem 0; color: #b2bec3; font-size: 0.9rem; }
+        .coffee-link { color: #b2bec3; border-bottom: 1px dashed #b2bec3; }
+        .coffee-link:hover { color: #6c5ce7; border-color: #6c5ce7; }
 
-        /* --- 移动端适配 --- */
-        @media (max-width: 768px) {
-            .hero-content h1 { font-size: 2rem; }
-            nav { flex-direction: column; gap: 1rem; }
+        /* --- 移动端 --- */
+        @media (max-width: 600px) {
+            .resource-card { flex-direction: column; text-align: center; }
+            .card-image { width: 100%; height: 200px; }
+            .card-footer { flex-direction: column; gap: 1rem; }
+            .price { order: 2; }
+            .btn { width: 100%; text-align: center; }
         }
     </style>
 </head>
 <body>
 
-    <!-- 导航栏 -->
+    <!-- 头部 -->
     <header>
-        <nav>
-            <div class="logo">MyPortfolio.</div>
-            <ul class="nav-links">
-                <li><a href="#home">首页</a></li>
-                <li><a href="#about">关于我</a></li>
-                <li><a href="#projects">项目</a></li>
-                <li><a href="#contact">联系</a></li>
-            </ul>
-        </nav>
+        <div class="logo">My<span>Store</span></div>
     </header>
 
-    <!-- 首页 -->
-    <section id="home">
-        <div class="container hero-content">
-            <h1>你好，我是 Tom</h1>
-            <p>一名热爱创造的软件开发者</p>
-            <a href="#projects" class="btn">查看我的作品</a>
+    <!-- 主体 -->
+    <div class="container">
+        <div class="intro">
+            <h1>精选资源与说明书</h1>
+            <p>这里收集了一些好用的软件工具和对应的使用手册</p>
         </div>
-    </section>
 
-    <!-- 关于我 -->
-    <section id="about">
-        <div class="container">
-            <h2>关于我</h2>
-            <div class="about-content">
-                <div class="about-text">
-                    <p>这里写一段关于你自己的介绍。比如你来自哪里，你现在的目标是什么，以及你对什么技术或领域充满热情。</p>
-                    <br>
-                    <p>我擅长解决问题，并且喜欢不断学习新事物。</p>
+        <div class="resource-list">
+            
+            <!-- 项目 1 -->
+            <div class="resource-card">
+                <!-- 图片占位符：你可以把 src 换成真实的图片链接 -->
+                <div class="card-image">
+                    <!-- <img src="你的图片地址.jpg" alt="图标"> -->
+                    <span>软件图标</span>
+                </div>
+                <div class="card-content">
+                    <h3 class="card-title">Adobe Photoshop 2024 说明书</h3>
+                    <p class="card-desc">包含最新的 AI 填充功能介绍，快捷键大全以及图层管理技巧。PDF 格式，共 150 页。</p>
+                    <div class="card-footer">
+                        <span class="price">免费</span>
+                        <a href="private.html" class="btn">获取/查看</a>
+                    </div>
                 </div>
             </div>
-        </div>
-    </section>
 
-    <!-- 项目展示 -->
-    <section id="projects">
-        <div class="container">
-            <h2>我的项目</h2>
-            <div class="project-grid">
-                <!-- 项目 1 -->
-                <div class="project-card">
-                    <h3>项目名称 1</h3>
-                    <p>简短描述这个项目是做什么的，使用了什么技术（例如：Python, React）。</p>
+            <!-- 项目 2 -->
+            <div class="resource-card">
+                <div class="card-image">
+                    <span>软件图标</span>
                 </div>
-                <!-- 项目 2 -->
-                <div class="project-card">
-                    <h3>项目名称 2</h3>
-                    <p>简短描述这个项目。这是你解决的一个有趣的问题，或者是你创作的一个设计作品。</p>
-                </div>
-                <!-- 项目 3 -->
-                <div class="project-card">
-                    <h3>项目名称 3</h3>
-                    <p>简短描述这个项目。保持描述简洁明了，吸引人们点击查看详情。</p>
+                <div class="card-content">
+                    <h3 class="card-title">Final Cut Pro 高级教程</h3>
+                    <p class="card-desc">从入门到精通的视频教程配套文档，包含色彩分级和音频处理章节。</p>
+                    <div class="card-footer">
+                        <span class="price">¥ 9.90</span>
+                        <a href="private.html" class="btn">立即购买</a>
+                    </div>
                 </div>
             </div>
-        </div>
-    </section>
 
-    <!-- 联系方式 -->
-    <section id="contact">
-        <div class="container">
-            <h2>联系我</h2>
-            <p>如果有合作意向或只是想打个招呼，欢迎通过以下方式联系我：</p>
-            <div class="contact-info">
-                <p>📧 邮箱:zhaotianf@126.com</p>
-                <p>🐙 GitHub: github.com/yourname</p>
-                <p>💬 微信: your_wechat_id</p>
+            <!-- 项目 3 -->
+            <div class="resource-card">
+                <div class="card-image">
+                    <span>软件图标</span>
+                </div>
+                <div class="card-content">
+                    <h3 class="card-title">Sony A7M4 相机参数设置</h3>
+                    <p class="card-desc">适合人像摄影的直出参数设置文件，以及菜单详细解析。</p>
+                    <div class="card-footer">
+                        <span class="price">免费</span>
+                        <a href="private.html" class="btn">下载</a>
+                    </div>
+                </div>
             </div>
-        </div>
-    </section>
 
-    <!-- 页脚 (已修改：添加了 Coffee 链接) -->
+        </div>
+    </div>
+
+    <!-- 页脚 -->
     <footer>
-        <p>&copy; 2026 [你的名字]. 保留所有权利.</p>
-        <p style="margin-top: 10px; font-size: 0.85rem;">
-            Made with Code & <a href="private.html" class="coffee-link">Coffee</a>
+        <p>&copy; 2026 My Resources. All rights reserved.</p>
+        <p style="margin-top: 10px;">
+            Powered by <a href="private.html" class="coffee-link">Coffee</a>
         </p>
     </footer>
 
-    <!-- 简单的平滑滚动脚本 -->
-    <script>
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                document.querySelector(this.getAttribute('href')).scrollIntoView({
-                    behavior: 'smooth'
-                });
-            });
-        });
-    </script>
 </body>
 </html>
