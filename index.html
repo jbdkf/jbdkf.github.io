@@ -49,7 +49,10 @@
 
         /* --- 页脚 --- */
         footer { text-align: center; padding: 2rem; background: #222; color: #777; font-size: 0.9rem; }
-        
+        /* 专门给 Coffee 链接加个样式，让它看起来像个彩蛋 */
+        .coffee-link { color: #999; transition: color 0.3s; }
+        .coffee-link:hover { color: #d2b48c; } /* 鼠标放上去变成咖啡色 */
+
         /* --- 移动端适配 --- */
         @media (max-width: 768px) {
             .hero-content h1 { font-size: 2rem; }
@@ -75,8 +78,8 @@
     <!-- 首页 -->
     <section id="home">
         <div class="container hero-content">
-            <h1>你好，我是Tom</h1>
-            <p>一名热爱创造的 [你的职业/身份，例如：前端开发者 / 设计师 / 摄影师]</p>
+            <h1>你好，我是 Tom</h1>
+            <p>一名热爱创造的软件开发者</p>
             <a href="#projects" class="btn">查看我的作品</a>
         </div>
     </section>
@@ -125,18 +128,18 @@
             <h2>联系我</h2>
             <p>如果有合作意向或只是想打个招呼，欢迎通过以下方式联系我：</p>
             <div class="contact-info">
-                <p>📧 邮箱: zhaotianf@126.com</p>
+                <p>📧 邮箱:zhaotianf@126.com</p>
                 <p>🐙 GitHub: github.com/yourname</p>
                 <p>💬 微信: your_wechat_id</p>
             </div>
         </div>
     </section>
 
-    <!-- 页脚 (已添加 Coffee 入口) -->
+    <!-- 页脚 (已修改：添加了 Coffee 链接) -->
     <footer>
         <p>&copy; 2026 [你的名字]. 保留所有权利.</p>
-        <p style="margin-top: 10px; font-size: 0.8rem;">
-            Made with Code & <a href="private.html" style="color: #999;">Coffee</a>
+        <p style="margin-top: 10px; font-size: 0.85rem;">
+            Made with Code & <a href="private.html" class="coffee-link">Coffee</a>
         </p>
     </footer>
 
